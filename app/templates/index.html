@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/dashboard.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/bootstrap.min.css') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Каналсервис</title>
+</head>
+
+<body>
+
+
+
+  <header class="navbar navbar-dark bg-dark p-0 ">
+    <a class="navbar-brand px-4" href="/update">
+      <h2>Каналсервис</h2>
+    </a>
+  </header>
+
+
+  <main class=" ms-sm-auto px-md-4">
+
+    {% block content %}
+
+    {% if orders %}
+
+    <h2 class="">Total: <a id="total_price"></a>$</h2>
+
+    <canvas class="my-4 w-100" id="myChart"></canvas>
+
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">№ заказа</th>
+            <th scope="col">Стоимость, $</th>
+            <th scope="col">Стоимость, руб</th>
+            <th scope="col">Срок поставки</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ order.order_num }}</td>
+            <td class="price_usd">{{ order.price_usd }}</td>
+            <td class="price_rub">{{ order.price_rub }}</td>
+            <td class="delivery_time">{{ order.delivery_time }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>Нет данных</p>
+    {% endif %}
+  </main>
+
+  {% endblock %}
+
+  <script src="{{ url_for('static', path='/js/jquery-slim.js') }}"></script>
+  <script src="{{ url_for('static', path='/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/js/feather.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/js/Chart.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/js/dashboard.js') }}"></script>
+</body>
+
+</html>
